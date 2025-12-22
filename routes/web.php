@@ -35,14 +35,6 @@ Route::get('/charts',[App\Http\Controllers\AdminTemplateController::class, 'char
 Route::get('/tables',[App\Http\Controllers\AdminTemplateController::class, 'table'])->name('tables');
 
 
-
-
-
-
-
-
-
-
 Route::get('/layoutstat', [App\Http\Controllers\AdminTemplateController::class, 'layoutstat'])->name('layoutstat');
 Route::get('/layoutsidenavs', [App\Http\Controllers\AdminTemplateController::class, 'layoutsidenav'])->name('layoutsidenavs');
 Route::get('/login', [App\Http\Controllers\AdminTemplateController::class, 'login'])->name('login');

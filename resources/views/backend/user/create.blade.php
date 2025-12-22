@@ -68,6 +68,17 @@
                         </select>
                     </div>
 
+                    <!-- Status -->
+                    <div class="mb-3 row">
+                        <label for="status" class="col-sm-3 col-form-label">Status</label>
+                        <div class="col-sm-9">
+                            <select name="status" id="status" class="form-select">
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="text-end">
                         <a href="{{ route('users.index') }}" class="btn btn-secondary me-2">Back</a>
                         <button type="submit" class="btn btn-primary px-4">Save</button>
@@ -80,3 +91,25 @@
 </div>
 
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const selectAll = document.getElementById('select-all');
+        const deselectAll = document.getElementById('deselect-all');
+        const rolesSelect = document.getElementById('roles');
+
+        if (selectAll) selectAll.addEventListener('click', () => {
+            for (let i = 0; i < rolesSelect.options.length; i++) {
+                rolesSelect.options[i].selected = true;
+            }
+        });
+
+        if (deselectAll) deselectAll.addEventListener('click', () => {
+            for (let i = 0; i < rolesSelect.options.length; i++) {
+                rolesSelect.options[i].selected = false;
+            }
+        });
+    });
+</script>
+@endpush

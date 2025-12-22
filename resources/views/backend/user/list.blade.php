@@ -23,17 +23,18 @@
                 <table class="table table-bordered align-middle" width="100%" cellspacing="0">
                     <thead class="text-center">
                         <tr>
-                            <th>No</th>
+                            <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Roles</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($users as $user)
                         <tr>
-                            <td class="text-center">{{ $loop->iteration }}</td>
+                            <td class="text-center">{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td class="text-center">
@@ -43,6 +44,13 @@
                                     @endforeach
                                 @else
                                     <span class="text-muted">No Role</span>
+                                @endif
+                            </td>
+                            <td class="text-center">
+                                @if(isset($user->status) && $user->status === 'inactive')
+                                    <span class="badge bg-secondary">Inactive</span>
+                                @else
+                                    <span class="badge bg-success">Active</span>
                                 @endif
                             </td>
                             <td class="text-center">

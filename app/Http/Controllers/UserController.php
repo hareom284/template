@@ -36,6 +36,7 @@ class UserController extends Controller
             'userName'     => 'required|min:3',
             'userEmail'    => 'required|email|unique:users,email', 
             'userPassword' => 'required|min:6',
+            'status'       => 'nullable|in:active,inactive',
         ]);
 
         //store in the database 
@@ -43,6 +44,7 @@ class UserController extends Controller
         $user->name = $request->userName;
         $user->email = $request->userEmail;
         $user->password = bcrypt($request->userPassword); 
+        $user->status = $request->status ?? 'active';
         $user->save();
 
 
@@ -86,6 +88,7 @@ class UserController extends Controller
         $request->validate([
             'userName'  => 'required|min:3',
             'userEmail' => 'required|email|min:3|unique:users,email,' . $user->id,
+            'status'    => 'nullable|in:active,inactive',
            //'userPassword' => 'nullable|min:6', 
             'roles' => 'nullable|array',
             'roles.*' => 'exists:roles,name',
@@ -97,6 +100,10 @@ class UserController extends Controller
 
         if ($request->filled('userPassword')) {
             $user->password = bcrypt($request->userPassword);
+        }
+
+        if ($request->has('status')) {
+            $user->status = $request->status;
         }
 
         $user->save();

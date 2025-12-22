@@ -102,6 +102,22 @@
                         </div>
                     </div>
 
+                    {{-- Status --}}
+                    <div class="mb-3 row">
+                        <label for="status" class="col-sm-3 col-form-label">Status</label>
+                        <div class="col-sm-9">
+                            <select name="status" id="status" class="form-select @error('status') is-invalid @enderror">
+                                <option value="active" {{ old('status', $user->status ?? 'active') === 'active' ? 'selected' : '' }}>Active</option>
+                                <option value="inactive" {{ old('status', $user->status ?? '') === 'inactive' ? 'selected' : '' }}>Inactive</option>
+                            </select>
+                            @error('status')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
                     {{-- Buttons --}}
                     <div class="text-end">
                         <a href="{{ route('users.index') }}" class="btn btn-secondary me-2">Back</a>
@@ -115,3 +131,25 @@
 
 
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const selectAll = document.getElementById('select-all');
+        const deselectAll = document.getElementById('deselect-all');
+        const rolesSelect = document.getElementById('roles');
+
+        if (selectAll) selectAll.addEventListener('click', () => {
+            for (let i = 0; i < rolesSelect.options.length; i++) {
+                rolesSelect.options[i].selected = true;
+            }
+        });
+
+        if (deselectAll) deselectAll.addEventListener('click', () => {
+            for (let i = 0; i < rolesSelect.options.length; i++) {
+                rolesSelect.options[i].selected = false;
+            }
+        });
+    });
+</script>
+@endpush
